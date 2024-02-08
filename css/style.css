@@ -68,3 +68,56 @@ h1 {
     display: inline-block;
     margin-top: 17px;
 }
+
+/*classe hide*/
+
+/* .hide {
+    display: none !important;
+} */
+
+
+/*placar*/
+
+#scoreboard-container {
+    font-weight: bold;
+    margin-top: 30px;
+    font-size: 25px;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.score-box {
+    margin: 0 20px;
+}
+
+#x-scoreboard {
+    color: red;
+    margin-right: 3px;
+}
+
+#o-scoreboard {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border: 2px solid green;
+    border-radius: 50%;
+    margin-right: 3px;
+}
+
+/*mensagem de vitória*/
+
+#message-p {
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    top: 150px;
+    width:  500px;
+    font-size: 50px;
+    background-color: black;
+    color: #fff;
+    padding: 20px;
+    display: none;
+}

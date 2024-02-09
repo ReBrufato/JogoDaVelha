@@ -25,7 +25,6 @@ for(i=0; i<boxes.length; i++){
         }
 
         checkWinCondition()
-
     })
 }
 
@@ -52,12 +51,13 @@ function checkWinCondition(){
     let elVertical = checkWinConditionVertical(b1,b2,b3,b4,b5,b6,b7,b8,b9)
     let elDiagonal = checkWinConditionDiagonal(b1,b2,b3,b5,b7,b8,b9)
 
-    if(elHorizontal != false){console.log(`${elHorizontal} venceu!`)}
-    else if(elVertical != false){console.log(`${elVertical} venceu!`)}
-    else if(elDiagonal != false){console.log(`${elDiagonal} venceu!`)}
+    if(elHorizontal != false){declareWinner(elHorizontal)}
+    else if(elVertical != false){declareWinner(elVertical)}
+    else if(elDiagonal != false){declareWinner(elDiagonal)}
 
     if(contBoxes == 9){
-        console.log("Deu velha")
+        messagetext.textContent = "Deu velha!"
+        messageContainer.classList.remove("hide")
         contBoxes = 0
     }
 }
@@ -154,4 +154,23 @@ function checkWinConditionDiagonal(b1,b2,b3,b5,b7,b8,b9){
     return false
 }
 
+//limpa o jogo, atualiza placar e declara vencedor
+function declareWinner(winner){
+    let scoreBoardX = document.getElementById("scoreboard-1")
+    let scoreBoardY = document.getElementById("scoreboard-2")
+    let msg = ''
+
+    if(winner == 'x'){
+        scoreBoardX.textContent = parseInt(scoreBoardX.textContent) + 1
+        msg = "O jogador 1 venceu!"
+        console.log(`${winner} venceu!`)
+    }else if(winner = 'o'){
+        scoreBoardY.textContent = parseInt(scoreBoardY.textContent) + 1
+        msg = "O jogador 2 venceu!"
+        console.log(`${winner} venceu!`)
+    }
+
+    messagetext.textContent = msg
+    messageContainer.classList.remove("hide")
+}
 

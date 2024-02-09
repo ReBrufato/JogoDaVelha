@@ -22,6 +22,7 @@ for(i=0; i<boxes.length; i++){
             this.appendChild(cloneElemento)
 
             player1 == player2? player1++ : player2 ++
+            contBoxes++
         }
 
         checkWinCondition()
@@ -36,7 +37,6 @@ function checkElemento(player1, player2){
 
 //verifica se alguém ganhou
 function checkWinCondition(){
-    contBoxes ++
     let b1 = document.querySelector("#block-1")
     let b2 = document.querySelector("#block-2")
     let b3 = document.querySelector("#block-3")
@@ -49,15 +49,14 @@ function checkWinCondition(){
 
     let elHorizontal = checkWinConditionHorizontal(b1,b2,b3,b4,b5,b6,b7,b8,b9)
     let elVertical = checkWinConditionVertical(b1,b2,b3,b4,b5,b6,b7,b8,b9)
-    let elDiagonal = checkWinConditionDiagonal(b1,b2,b3,b5,b7,b8,b9)
+    let elDiagonal = checkWinConditionDiagonal(b1,b3,b5,b7,b9)
 
     if(elHorizontal != false){declareWinner(elHorizontal)}
     else if(elVertical != false){declareWinner(elVertical)}
     else if(elDiagonal != false){declareWinner(elDiagonal)}
 
     if(contBoxes == 9){
-        messagetext.textContent = "Deu velha!"
-        messageContainer.classList.remove("hide")
+        declareWinner("velha")
         contBoxes = 0
     }
 }
@@ -70,7 +69,7 @@ function checkWinConditionVertical(b1,b2,b3,b4,b5,b6,b7,b8,b9){
         let b4Child = b4.childNodes[0].className
         let b7Child = b7.childNodes[0].className
 
-        if(b1Child === b4Child && b1Child == b7Child){return b1Child}
+        if(b1Child == b4Child && b1Child == b7Child){return b1Child}
     }
 
     //vertical 2
@@ -80,7 +79,7 @@ function checkWinConditionVertical(b1,b2,b3,b4,b5,b6,b7,b8,b9){
         let b5Child = b5.childNodes[0].className
         let b8Child = b8.childNodes[0].className
 
-        if(b2Child === b5Child && b2Child == b8Child){return b2Child}
+        if(b2Child == b5Child && b2Child == b8Child){return b2Child}
     }
 
     //vertical 3
@@ -90,7 +89,7 @@ function checkWinConditionVertical(b1,b2,b3,b4,b5,b6,b7,b8,b9){
         let b6Child = b6.childNodes[0].className
         let b9Child = b9.childNodes[0].className
 
-        if(b3Child === b6Child && b3Child == b9Child){return b3Child}
+        if(b3Child == b6Child && b3Child == b9Child){return b3Child}
     }
 
     return false
@@ -114,7 +113,7 @@ function checkWinConditionHorizontal(b1,b2,b3,b4,b5,b6,b7,b8,b9){
         let b5Child = b5.childNodes[0].className
         let b6Child = b6.childNodes[0].className
 
-        if(b4Child === b5Child && b4Child == b6Child){return b4Child}
+        if(b4Child == b5Child && b4Child == b6Child){return b4Child}
     }
 
     //horizontal 3
@@ -124,13 +123,13 @@ function checkWinConditionHorizontal(b1,b2,b3,b4,b5,b6,b7,b8,b9){
         let b8Child = b8.childNodes[0].className
         let b9Child = b9.childNodes[0].className
 
-        if(b7Child === b8Child && b7Child == b9Child){return b7Child}
+        if(b7Child == b8Child && b7Child == b9Child){return b7Child}
     }
 
     return false
 }
 
-function checkWinConditionDiagonal(b1,b2,b3,b5,b7,b8,b9){
+function checkWinConditionDiagonal(b1,b3,b5,b7,b9){
     //diagonal 1
     if(b1.childNodes.length > 0 && b5.childNodes.length > 0 && b9.childNodes.length > 0){
 
@@ -138,7 +137,7 @@ function checkWinConditionDiagonal(b1,b2,b3,b5,b7,b8,b9){
         let b5Child = b5.childNodes[0].className
         let b9Child = b9.childNodes[0].className
 
-        if(b1Child === b5Child && b1Child == b9Child){return b1Child}
+        if(b1Child == b5Child && b1Child == b9Child){return b1Child}
     }
 
     //diagonal 2
@@ -148,7 +147,7 @@ function checkWinConditionDiagonal(b1,b2,b3,b5,b7,b8,b9){
         let b5Child = b5.childNodes[0].className
         let b7Child = b7.childNodes[0].className
 
-        if(b3Child === b5Child && b3Child == b7Child){return b3Child}
+        if(b3Child == b5Child && b3Child == b7Child){return b3Child}
     }
 
     return false
@@ -163,14 +162,36 @@ function declareWinner(winner){
     if(winner == 'x'){
         scoreBoardX.textContent = parseInt(scoreBoardX.textContent) + 1
         msg = "O jogador 1 venceu!"
-        console.log(`${winner} venceu!`)
-    }else if(winner = 'o'){
+    }else if(winner == 'o'){
         scoreBoardY.textContent = parseInt(scoreBoardY.textContent) + 1
         msg = "O jogador 2 venceu!"
-        console.log(`${winner} venceu!`)
+    }else if(winner == "velha"){
+        msg = "Deu velha !"
     }
 
     messagetext.textContent = msg
     messageContainer.classList.remove("hide")
+
+    removeMessage()
+    zeroMoves()
+    removeXandO()
 }
 
+function removeMessage(){
+    setTimeout(function(){
+        messageContainer.classList.add("hide")
+    }, 1000)
+}
+
+function zeroMoves(){
+    player1 = 0
+    player2 = 0
+}
+
+function removeXandO(){
+    let boxesToRemove = document.querySelectorAll(".box div")
+
+    for(let i = 0; i<boxesToRemove.length; i++){
+        boxesToRemove[i].parentNode.removeChild(boxesToRemove[i])
+    }
+}

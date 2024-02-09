@@ -71,9 +71,9 @@ h1 {
 
 /*classe hide*/
 
-/* .hide {
+.hide {
     display: none !important;
-} */
+}
 
 
 /*placar*/
@@ -107,17 +107,16 @@ h1 {
 
 /*mensagem de vitória*/
 
-#message-p {
+#message p {
     position: absolute;
     margin-left: auto;
     margin-right: auto;
     left: 0;
     right: 0;
     top: 150px;
-    width:  500px;
+    width: 500px;
     font-size: 50px;
-    background-color: black;
-    color: #fff;
+    background-color: #000;
+    color: #FFF;
     padding: 20px;
-    display: none;
 }

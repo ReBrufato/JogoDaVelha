@@ -21,7 +21,18 @@ for(i=0; i<boxes.length; i++){
             let cloneElemento = elemento.cloneNode(true)
             this.appendChild(cloneElemento)
 
-            player1 == player2? player1++ : player2 ++
+            if(player1 == player2){
+                player1++
+
+                if(secondPlayer == 'ia-player'){
+                    computerPlay()
+                    player2++
+                }
+
+            }else{
+                player2++
+            }
+
             contBoxes++
         }
 
@@ -193,5 +204,47 @@ function removeXandO(){
 
     for(let i = 0; i<boxesToRemove.length; i++){
         boxesToRemove[i].parentNode.removeChild(boxesToRemove[i])
+    }
+}
+
+//seleção de modo de jogo
+for(let i = 0; i < buttons.length; i++){
+
+    buttons[i].addEventListener("click", function(){
+        
+        secondPlayer = this.getAttribute("id")
+
+        buttons[0].style.display = "none"
+        buttons[1].style.display = "none"
+
+        setTimeout(function(){
+            let container = document.getElementById("container")
+            container.classList.remove("hide")
+        }, 500)
+    })
+}
+
+//jogada CPU (joga com 'o')
+function computerPlay(){
+    let cloneO = o.cloneNode(true)
+    counter = 0 //vezes jogadas
+    filled = 0 //vezes não jogadas
+
+    for(let i = 0; i < boxes.length; i++){
+        let randomNumber = Math.floor(Math.random() * 5) 
+
+        if(boxes[i].childNodes[0] == undefined){
+            if(randomNumber <=1){ 
+                boxes[i].appendChild(cloneO)
+                counter++
+                break
+            }
+        }else{
+            filled++ 
+        }
+    }
+
+    if(counter == 0 && filled < 9){
+        computerPlay()
     }
 }
